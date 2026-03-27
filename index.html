@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ODY Logistics & Transport</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- SPLASH SCREEN -->
+  <div id="splash">
+    <div class="splash-logo">
+      <div class="logo-mark">ODY</div>
+      <div class="logo-sub">LOGISTICS & TRANSPORT</div>
+    </div>
+    <div class="splash-tagline">Move with confidence.</div>
+    <div class="splash-loader"><span></span></div>
+  </div>
+
+  <!-- APP SHELL -->
+  <div id="app" class="hidden">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-logo">ODY</div>
+      <button class="notif-btn" id="notifBtn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notif-dot"></span>
+      </button>
+    </header>
+
+    <!-- PAGES -->
+    <main class="pages">
+
+      <!-- HOME PAGE -->
+      <section class="page active" id="page-home">
+
+        <!-- HERO -->
+        <div class="hero">
+          <div class="hero-bg"></div>
+          <div class="hero-content">
+            <p class="hero-eyebrow">Abuja's Premier Fleet</p>
+            <h1 class="hero-title">Drive<br/>Anywhere.<br/>Anytime.</h1>
+            <p class="hero-desc">Reliable car hire, airport pickups & executive transport across Abuja.</p>
+            <div class="hero-cta-row">
+              <button class="btn-primary" onclick="App.goTo('page-book')">Book a Ride</button>
+              <button class="btn-ghost" onclick="App.goTo('page-fleet')">View Fleet</button>
+            </div>
+          </div>
+          <div class="hero-car-badge">
+            <span class="badge-number">14+</span>
+            <span class="badge-label">Vehicles<br/>Available</span>
+          </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="section-label">Quick Actions</div>
+        <div class="quick-actions">
+          <button class="qa-card" onclick="App.goTo('page-book')">
+            <div class="qa-icon">🚗</div>
+            <div class="qa-text">Car Hire</div>
+          </button>
+          <button class="qa-card" onclick="App.showService('airport')">
+            <div class="qa-icon">✈️</div>
+            <div class="qa-text">Airport Pickup</div>
+          </button>
+          <button class="qa-card" onclick="App.showService('escort')">
+            <div class="qa-icon">🛡️</div>
+            <div class="qa-text">Police Escort</div>
+          </button>
+          <button class="qa-card" onclick="App.goTo('page-contact')">
+            <div class="qa-icon">📞</div>
+            <div class="qa-text">Contact Us</div>
+          </button>
+        </div>
+
+        <!-- FEATURED CARS -->
+        <div class="section-label">Popular Rentals</div>
+        <div class="cars-scroll" id="carScroll"></div>
+
+        <!-- TRUST STRIP -->
+        <div class="trust-strip">
+          <div class="trust-item">
+            <span class="trust-num" data-target="14">0</span>
+            <span class="trust-label">Cars on Rental</span>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-item">
+            <span class="trust-num" data-target="500">0</span>
+            <span class="trust-label">Happy Clients</span>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-item">
+            <span class="trust-num" data-target="16">0</span>
+            <span class="trust-label">Years Operating</span>
+          </div>
+        </div>
+
+        <!-- TESTIMONIALS -->
+        <div class="section-label">What Clients Say</div>
+        <div class="testimonials" id="testimonials"></div>
+
+        <!-- HOURS BANNER -->
+        <div class="hours-banner">
+          <div class="hours-icon">🕘</div>
+          <div>
+            <div class="hours-title">Business Hours</div>
+            <div class="hours-text">Mon – Sat &nbsp;|&nbsp; 9:00 AM – 6:00 PM</div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- FLEET PAGE -->
+      <section class="page" id="page-fleet">
+        <div class="page-header">
+          <h2 class="page-title">Our Fleet</h2>
+          <p class="page-subtitle">Choose from our curated collection of well-maintained vehicles.</p>
+        </div>
+
+        <!-- FILTER PILLS -->
+        <div class="filter-pills" id="filterPills">
+          <button class="pill active" data-filter="all">All</button>
+          <button class="pill" data-filter="Toyota">Toyota</button>
+          <button class="pill" data-filter="Lexus">Lexus</button>
+          <button class="pill" data-filter="Mercedes-Benz">Mercedes</button>
+          <button class="pill" data-filter="BMW">BMW</button>
+        </div>
+
+        <div class="fleet-grid" id="fleetGrid"></div>
+      </section>
+
+      <!-- BOOK PAGE -->
+      <section class="page" id="page-book">
+        <div class="page-header">
+          <h2 class="page-title">Book a Vehicle</h2>
+          <p class="page-subtitle">Fill in your trip details and we'll confirm shortly.</p>
+        </div>
+
+        <div class="book-form" id="bookForm">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter your full name" />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+234 ..." />
+          </div>
+          <div class="form-group">
+            <label>Service Type</label>
+            <select id="serviceSelect">
+              <option value="">Select a service...</option>
+              <option>Car Hire (Daily)</option>
+              <option>Airport Pickup</option>
+              <option>Police Escort</option>
+              <option>Corporate Transport</option>
+              <option>Event / Occasion</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Pickup Location</label>
+            <input type="text" placeholder="Where should we pick you up?" />
+          </div>
+          <div class="form-group form-row">
+            <div>
+              <label>Pickup Date</label>
+              <input type="date" />
+            </div>
+            <div>
+              <label>Pickup Time</label>
+              <input type="time" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Vehicle Preference</label>
+            <select>
+              <option value="">Any available vehicle</option>
+              <option>Toyota Hilux</option>
+              <option>Toyota Camry</option>
+              <option>Toyota Corolla</option>
+              <option>Lexus SUV</option>
+              <option>Mercedes-Benz</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Additional Notes</label>
+            <textarea rows="3" placeholder="Any special requests or instructions..."></textarea>
+          </div>
+          <button class="btn-primary full" onclick="App.submitBooking()">Confirm Booking</button>
+        </div>
+
+        <!-- SUCCESS STATE -->
+        <div class="book-success hidden" id="bookSuccess">
+          <div class="success-icon">✅</div>
+          <h3>Booking Received!</h3>
+          <p>Our team will contact you within 30 minutes to confirm your reservation.</p>
+          <p class="success-phone">Call us now: <a href="tel:07054678068">07054678068</a></p>
+          <button class="btn-primary" onclick="App.resetBooking()">Book Another</button>
+        </div>
+      </section>
+
+      <!-- CONTACT PAGE -->
+      <section class="page" id="page-contact">
+        <div class="page-header">
+          <h2 class="page-title">Contact Us</h2>
+          <p class="page-subtitle">We're always here to help.</p>
+        </div>
+
+        <div class="contact-card">
+          <a href="tel:07054678068" class="contact-row">
+            <div class="contact-icon-wrap call">📞</div>
+            <div>
+              <div class="contact-label">Call Us Directly</div>
+              <div class="contact-value">07054678068</div>
+            </div>
+            <div class="contact-arrow">›</div>
+          </a>
+          <a href="https://wa.me/2347054678068" class="contact-row" target="_blank">
+            <div class="contact-icon-wrap wa">💬</div>
+            <div>
+              <div class="contact-label">WhatsApp</div>
+              <div class="contact-value">Chat on WhatsApp</div>
+            </div>
+            <div class="contact-arrow">›</div>
+          </a>
+          <div class="contact-row no-link">
+            <div class="contact-icon-wrap loc">📍</div>
+            <div>
+              <div class="contact-label">Our Location</div>
+              <div class="contact-value">Transcorp Hilton Hotel<br/>Maitama, FCT, Abuja</div>
+            </div>
+          </div>
+          <div class="contact-row no-link">
+            <div class="contact-icon-wrap hrs">🕘</div>
+            <div>
+              <div class="contact-label">Working Hours</div>
+              <div class="contact-value">Mon – Sat: 9:00 AM – 6:00 PM</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-label" style="margin-top:28px">Send a Message</div>
+        <div class="book-form">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="Full name" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="4" placeholder="How can we help?"></textarea>
+          </div>
+          <button class="btn-primary full" onclick="App.sendMessage()">Send Message</button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-page="page-home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+      </button>
+      <button class="nav-item" data-page="page-fleet">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <span>Fleet</span>
+      </button>
+      <button class="nav-item book-center" data-page="page-book">
+        <div class="book-fab">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <span>Book</span>
+      </button>
+      <button class="nav-item" data-page="page-contact">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.61 5.61l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>Contact</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- CAR DETAIL MODAL -->
+  <div class="modal-overlay hidden" id="carModal">
+    <div class="modal-sheet">
+      <button class="modal-close" onclick="App.closeModal()">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
