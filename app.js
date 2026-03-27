@@ -2,17 +2,19 @@
    ODY LOGISTICS & TRANSPORT — App Logic
    ============================================================ */
 
+const API_BASE = '/api';
+
 const DATA = {
   cars: [
-    { id: 1, name: "Toyota Hilux", year: 2023, price: 150000, type: "Toyota", transmission: "Automatic", seats: 5, emoji: "🛻", tag: "Premium" },
-    { id: 2, name: "Toyota Corolla", year: 2010, price: 70000, type: "Toyota", transmission: "Automatic", seats: 5, emoji: "🚗", tag: "Economy" },
-    { id: 3, name: "Toyota Camry", year: 2014, price: 80000, type: "Toyota", transmission: "Automatic", seats: 5, emoji: "🚙", tag: "Comfort" },
-    { id: 4, name: "Toyota Camry", year: 2016, price: 100000, type: "Toyota", transmission: "Automatic", seats: 5, emoji: "🚙", tag: "Comfort" },
-    { id: 5, name: "Toyota Hilux (Police Escort)", year: 2019, price: 80000, type: "Toyota", transmission: "Automatic", seats: 5, emoji: "🛡️", tag: "Escort" },
-    { id: 6, name: "Toyota Hilux (Police Escort)", year: 2020, price: 120000, type: "Toyota", transmission: "Automatic", seats: 5, emoji: "🛡️", tag: "Escort" },
-    { id: 7, name: "Lexus RX 350", year: 2018, price: 180000, type: "Lexus", transmission: "Automatic", seats: 5, emoji: "🚘", tag: "Luxury" },
-    { id: 8, name: "Mercedes-Benz E-Class", year: 2019, price: 250000, type: "Mercedes-Benz", transmission: "Automatic", seats: 5, emoji: "🏎️", tag: "Executive" },
-    { id: 9, name: "BMW 5 Series", year: 2017, price: 220000, type: "BMW", transmission: "Automatic", seats: 5, emoji: "🚗", tag: "Executive" },
+    { id: 1, name: "Toyota Hilux", year: 2023, price: 150000, type: "Toyota", transmission: "Automatic", seats: 5, icon: "truck", tag: "Premium" },
+    { id: 2, name: "Toyota Corolla", year: 2010, price: 70000, type: "Toyota", transmission: "Automatic", seats: 5, icon: "car", tag: "Economy" },
+    { id: 3, name: "Toyota Camry", year: 2014, price: 80000, type: "Toyota", transmission: "Automatic", seats: 5, icon: "car", tag: "Comfort" },
+    { id: 4, name: "Toyota Camry", year: 2016, price: 100000, type: "Toyota", transmission: "Automatic", seats: 5, icon: "car", tag: "Comfort" },
+    { id: 5, name: "Toyota Hilux (Police Escort)", year: 2019, price: 80000, type: "Toyota", transmission: "Automatic", seats: 5, icon: "shield", tag: "Escort" },
+    { id: 6, name: "Toyota Hilux (Police Escort)", year: 2020, price: 120000, type: "Toyota", transmission: "Automatic", seats: 5, icon: "shield", tag: "Escort" },
+    { id: 7, name: "Lexus RX 350", year: 2018, price: 180000, type: "Lexus", transmission: "Automatic", seats: 5, icon: "car", tag: "Luxury" },
+    { id: 8, name: "Mercedes-Benz E-Class", year: 2019, price: 250000, type: "Mercedes-Benz", transmission: "Automatic", seats: 5, icon: "car", tag: "Executive" },
+    { id: 9, name: "BMW 5 Series", year: 2017, price: 220000, type: "BMW", transmission: "Automatic", seats: 5, icon: "car", tag: "Executive" },
   ],
 
   testimonials: [
@@ -40,17 +42,29 @@ const DATA = {
     airport: {
       title: "Airport Pickup",
       desc: "Reliable and punctual airport pickup services ensuring a smooth, comfortable ride from the airport to your destination.",
-      emoji: "✈️",
+      icon: "plane",
       features: ["Flight tracking", "Meet & greet", "Luggage assistance", "Fixed pricing"]
     },
     escort: {
       title: "Police Escort",
       desc: "Secure and professional police escort services for high-profile individuals, dignitaries, and sensitive cargo.",
-      emoji: "🛡️",
+      icon: "shield",
       features: ["Licensed escort vehicles", "Trained drivers", "Route planning", "24/7 availability"]
     }
   }
 };
+
+const ICONS = {
+  car: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 36h48l4 12H4l4-12Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M18 36V26c0-4 4-8 8-8h12c4 0 8 4 8 8v10" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="52" r="6" stroke="currentColor" stroke-width="4"/><circle cx="46" cy="52" r="6" stroke="currentColor" stroke-width="4"/></svg>`,
+  truck: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 40h34l6 10H8l2-10Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M26 40V28c0-4 4-8 8-8h12c4 0 8 4 8 8v12" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 40h8v8H50" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="54" r="6" stroke="currentColor" stroke-width="4"/><circle cx="46" cy="54" r="6" stroke="currentColor" stroke-width="4"/></svg>`,
+  shield: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M32 58s20-7 24-22V18L32 6 8 18v18c4 15 24 22 24 22Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M24 32l8 8 12-16" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  plane: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 34l44-10L26 24l8-8-8 4-6-6 4 8-10 4 10 4-4 8 6-6 8 4-4 8 28-8-44-10Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>`,
+  default: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 36h48l4 12H4l4-12Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M18 36V26c0-4 4-8 8-8h12c4 0 8 4 8 8v10" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="52" r="6" stroke="currentColor" stroke-width="4"/><circle cx="46" cy="52" r="6" stroke="currentColor" stroke-width="4"/></svg>`
+};
+
+function getIconSvg(key) {
+  return ICONS[key] || ICONS.default;
+}
 
 const App = (() => {
 
@@ -60,7 +74,9 @@ const App = (() => {
   let countersRun  = false;
 
   /* ── INIT ── */
-  function init() {
+  async function init() {
+    await loadRemoteData();
+
     // Show app after splash
     setTimeout(() => {
       document.getElementById("splash").style.display = "none";
@@ -124,7 +140,7 @@ const App = (() => {
 
     container.innerHTML = featured.map(car => `
       <div class="car-card" onclick="App.openCarModal(${car.id})">
-        <div class="car-card-img-placeholder">${car.emoji}</div>
+        <div class="car-card-img-placeholder">${getIconSvg(car.icon)}</div>
         <div class="car-card-body">
           <div class="car-card-name">${car.name}</div>
           <div class="car-card-year">${car.year} · ${car.tag}</div>
@@ -157,7 +173,7 @@ const App = (() => {
 
     grid.innerHTML = filtered.map(car => `
       <div class="fleet-card" onclick="App.openCarModal(${car.id})">
-        <div class="fleet-card-img">${car.emoji}</div>
+        <div class="fleet-card-img">${getIconSvg(car.icon)}</div>
         <div class="fleet-card-body">
           <div class="fleet-badge">${car.tag}</div>
           <div class="fleet-card-name">${car.name}</div>
@@ -175,7 +191,7 @@ const App = (() => {
 
     const content = document.getElementById("modalContent");
     content.innerHTML = `
-      <div class="modal-car-emoji">${car.emoji}</div>
+      <div class="modal-car-emoji">${getIconSvg(car.icon)}</div>
       <div class="modal-name">${car.name}</div>
       <div class="modal-year">${car.year} · ${car.tag} · Certified Used</div>
       <div class="modal-price">₦${car.price.toLocaleString()}</div>
@@ -223,7 +239,7 @@ const App = (() => {
 
     const content = document.getElementById("modalContent");
     content.innerHTML = `
-      <div class="modal-car-emoji">${svc.emoji}</div>
+      <div class="modal-car-emoji">${getIconSvg(svc.icon)}</div>
       <div class="modal-name">${svc.title}</div>
       <div class="modal-year" style="margin-bottom:16px">${svc.desc}</div>
       <div class="modal-specs">
@@ -246,11 +262,41 @@ const App = (() => {
   }
 
   /* ── BOOKING ── */
-  function submitBooking() {
-    document.getElementById("bookForm").classList.add("hidden");
-    document.getElementById("bookSuccess").classList.remove("hidden");
-    document.getElementById("page-book").scrollTop = 0;
-    showToast("🎉 Booking submitted!");
+  async function submitBooking() {
+    const name = document.getElementById('bookerName').value.trim();
+    const phone = document.getElementById('bookerPhone').value.trim();
+    const serviceType = document.getElementById('serviceSelect').value;
+    const pickupLocation = document.getElementById('pickupLocation').value.trim();
+    const pickupDate = document.getElementById('pickupDate').value;
+    const pickupTime = document.getElementById('pickupTime').value;
+    const vehiclePreference = document.getElementById('vehiclePreference').value;
+    const notes = document.getElementById('bookingNotes').value.trim();
+
+    if (!name || !phone || !serviceType || !pickupLocation || !pickupDate || !pickupTime || !vehiclePreference) {
+      showToast('Please complete all booking fields.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE}/bookings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, serviceType, pickupLocation, pickupDate, pickupTime, vehiclePreference, notes })
+      });
+
+      if (!response.ok) {
+        const json = await response.json();
+        throw new Error(json.error || 'Booking failed');
+      }
+
+      document.getElementById("bookForm").classList.add("hidden");
+      document.getElementById("bookSuccess").classList.remove("hidden");
+      document.getElementById("page-book").scrollTop = 0;
+      showToast("🎉 Booking submitted!");
+    } catch (error) {
+      showToast(`Unable to submit booking. ${error.message}`);
+      console.error(error);
+    }
   }
 
   function resetBooking() {
@@ -262,10 +308,34 @@ const App = (() => {
   }
 
   /* ── CONTACT MESSAGE ── */
-  function sendMessage() {
-    showToast("✅ Message sent! We'll reply soon.");
-    document.querySelectorAll("#page-contact input, #page-contact textarea")
-      .forEach(el => { el.value = ""; });
+  async function sendMessage() {
+    const name = document.getElementById('contactName').value.trim();
+    const email = document.getElementById('contactEmail').value.trim();
+    const message = document.getElementById('contactMessage').value.trim();
+
+    if (!name || !email || !message) {
+      showToast('Please complete the contact form.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE}/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message })
+      });
+
+      if (!response.ok) {
+        const json = await response.json();
+        throw new Error(json.error || 'Message failed');
+      }
+
+      showToast("✅ Message sent! We'll reply soon.");
+      document.getElementById('contactForm').reset();
+    } catch (error) {
+      showToast(`Unable to send message. ${error.message}`);
+      console.error(error);
+    }
   }
 
   /* ── COUNTER ANIMATION ── */
