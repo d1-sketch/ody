@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": 1,
+    "createdAt": "2026-03-27T19:01:12.380Z",
+    "name": "Test User",
+    "phone": "+2340000000000",
+    "serviceType": "Car Hire (Daily)",
+    "pickupLocation": "Maitama",
+    "pickupDate": "2026-04-01",
+    "pickupTime": "10:00",
+    "vehiclePreference": "Toyota Corolla",
+    "notes": "Test booking"
+  }
+]

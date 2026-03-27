@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": 1,
+    "createdAt": "2026-03-27T19:01:59.986Z",
+    "name": "Test Contact",
+    "email": "test@example.com",
+    "message": "Hello from test"
+  }
+]
