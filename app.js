@@ -66,6 +66,19 @@ function getIconSvg(key) {
   return ICONS[key] || ICONS.default;
 }
 
+async function loadRemoteData() {
+  try {
+    const response = await fetch(`${API_BASE}/data`);
+    if (!response.ok) throw new Error('Server returned ' + response.status);
+    const json = await response.json();
+    if (json.cars) DATA.cars = json.cars;
+    if (json.testimonials) DATA.testimonials = json.testimonials;
+    if (json.services) DATA.services = json.services;
+  } catch (error) {
+    console.warn('Unable to load remote data, falling back to local data.', error);
+  }
+}
+
 const App = (() => {
 
   /* ── STATE ── */
